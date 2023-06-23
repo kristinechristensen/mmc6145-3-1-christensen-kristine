@@ -1,6 +1,8 @@
+import reducer from "../../context/book/reducer"
 import { Link, useParams, useNavigate, Navigate } from "react-router-dom"
 import { useBookContext } from "../../context/book"
 import styles from "./style.module.css"
+import {ADD_BOOK, REMOVE_BOOK } from "../../context/book/actions"
 // TODO: import actions
 
 export default function Book() {
@@ -8,6 +10,7 @@ export default function Book() {
   const navigate = useNavigate()
   // TODO: Use dispatch appropriately to add/remove books
   const [{bookSearchResults, favoriteBooks}, dispatch] = useBookContext()
+  //const [{}]
 
   let isFavoriteBook = false
   let book = favoriteBooks.find(book => book.id === bookId)
@@ -24,12 +27,12 @@ export default function Book() {
         {
           isFavoriteBook
           // TODO: add onClick function that calls dispatch to add a book
-          ? <button>
-              Remove from Favorites
+          ? <button onClick={() => dispatch ({action:ADD_BOOK})}>
+              Add to Favorites
             </button>
           // TODO: add onClick function that calls dispatch to remove a book
-          : <button>
-              Add to Favorites
+          : <button onClick={() => dispatch ({action:REMOVE_BOOK})}>
+              Remove from
             </button>
         }
         <Link onClick={() => navigate(-1)}>
