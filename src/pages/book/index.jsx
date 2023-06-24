@@ -6,12 +6,13 @@ import {ADD_BOOK, REMOVE_BOOK } from "../../context/book/actions"
 // TODO: import actions
 
 export default function Book() {
-  const { bookId } = useParams()
-  const navigate = useNavigate()
+  const { bookId } = useParams()  //grab bookId from route
+  const navigate = useNavigate()  
   // TODO: Use dispatch appropriately to add/remove books
   const [{bookSearchResults, favoriteBooks}, dispatch] = useBookContext()
-  //const [{}]
 
+  
+//determines if book has been a favorite
   let isFavoriteBook = false
   let book = favoriteBooks.find(book => book.id === bookId)
   if (book)
@@ -27,12 +28,12 @@ export default function Book() {
         {
           isFavoriteBook
           // TODO: add onClick function that calls dispatch to add a book
-          ? <button onClick={() => dispatch ({action:ADD_BOOK})}>
-              Add to Favorites
+          ? <button onClick={() => dispatch ({action:REMOVE_BOOK, payload:book.id})}>
+              Remove from favorites
             </button>
           // TODO: add onClick function that calls dispatch to remove a book
-          : <button onClick={() => dispatch ({action:REMOVE_BOOK})}>
-              Remove from
+          : <button onClick={() => dispatch ({action:ADD_BOOK, payload:book })}>
+              Add to Favorites 
             </button>
         }
         <Link onClick={() => navigate(-1)}>
